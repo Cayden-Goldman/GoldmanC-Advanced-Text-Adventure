@@ -105,7 +105,7 @@ namespace Advanced_Text_Adventure
 
                 if(head.x == sb.x && head.y == sb.y)
                 {
-                    throw new SnakeException("Fuck you, you died stupid idiot dumbass!!!! >:(((");
+                    throw new SnakeException($"You died, your score was");
                 }
             }
         }
@@ -116,7 +116,7 @@ namespace Advanced_Text_Adventure
 
             if (head.x >= canvas.Width || head.x <= 0 || head.y  >= canvas.Height || head.y <= 0)
             {
-                throw new SnakeException("Fuck you, you died stupid idiot dumbass!!!! >:(((");
+                throw new SnakeException($"You died, your score was");
             }
         }
     }

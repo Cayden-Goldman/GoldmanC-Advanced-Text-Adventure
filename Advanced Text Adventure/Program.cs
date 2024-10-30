@@ -16,6 +16,9 @@ namespace Advanced_Text_Adventure
 
 
             Console.WriteLine("           _________ _________ _________              __                    \r\n          /   _____//   _____//   _____/ ____ _____  |  | __ ____           \r\n  ______  \\_____  \\ \\_____  \\ \\_____  \\ /    \\\\__  \\ |  |/ // __ \\   ______ \r\n /_____/  /        \\/        \\/        \\   |  \\/ __ \\|    <\\  ___/  /_____/ \r\n         /_______  /_______  /_______  /___|  (____  /__|_ \\\\___  >         \r\n                 \\/        \\/        \\/     \\/     \\/     \\/    \\/          ");
+            Console.WriteLine("\t\t\t  - Press enter to start -");
+            Console.WriteLine("\t\t\t      - WASD to move -");
+            Console.WriteLine("\t\t       - Pick up food to gain score -");
             Console.ReadLine();
             while(!finished)
             {
@@ -36,7 +39,13 @@ namespace Advanced_Text_Adventure
                 {
                     stupid = true;
                     Console.Clear();
-                    Console.WriteLine(e.Message);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(e.Message);
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write($" {snake.score}");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.WriteLine("Restart (y/n)");
                     while(stupid)
                     {
@@ -62,7 +71,7 @@ namespace Advanced_Text_Adventure
                         catch (FormatException)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("PLease enetaer a fv alid reopsne");
+                            Console.WriteLine("Please enter a valid response");
                             Console.ForegroundColor = ConsoleColor.White;
                         }
                     }
