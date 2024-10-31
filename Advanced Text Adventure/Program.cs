@@ -20,11 +20,12 @@ namespace Advanced_Text_Adventure
             Console.WriteLine("\t\t\t      - WASD to move -");
             Console.WriteLine("\t\t       - Pick up food to gain score -");
             Console.ReadLine();
-            while(!finished)
+            Console.Clear();
+            canvas.DrawBorder();
+            while (!finished)
             {
                 try
                 {
-                    canvas.drawCanvas();
                     Console.SetCursorPosition(40, 1);
                     Console.Write($"Score : {snake.score}");
                     food.DrawFood();
@@ -47,7 +48,8 @@ namespace Advanced_Text_Adventure
                     Console.WriteLine();
                     Console.WriteLine();
                     Console.WriteLine("Restart (y/n)");
-                    while(stupid)
+
+                    while (stupid)
                     {
                         try
                         {
@@ -55,13 +57,17 @@ namespace Advanced_Text_Adventure
                             switch (c)
                             {
                                 case 'y':
-
+                                    Console.Clear();         
+                                    canvas.DrawBorder();     
                                     snake.x = 20;
                                     snake.y = 20;
                                     snake.score = 0;
-                                    snake.snakeBody.RemoveRange(0, snake.snakeBody.Count - 1);
+                                    snake.snakeBody.Clear();
+                                    snake.snakeBody.Add(new Position(snake.x, snake.y));
+
                                     stupid = false;
                                     break;
+
                                 case 'n':
                                     finished = true;
                                     Environment.Exit(0);

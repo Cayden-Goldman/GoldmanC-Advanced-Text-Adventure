@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Advanced_Text_Adventure
@@ -32,14 +33,18 @@ namespace Advanced_Text_Adventure
 
         public void DrawSnake()
         {
-            foreach(Position pos in snakeBody)
+            foreach (Position pos in snakeBody)
             {
-                Console.SetCursorPosition(pos.x, pos.y);
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("S");
-                Console.ForegroundColor = ConsoleColor.White;
+                if (pos.x >= 0 && pos.x < Console.WindowWidth && pos.y >= 0 && pos.y < Console.WindowHeight)
+                {
+                    Console.SetCursorPosition(pos.x, pos.y);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("S");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
             }
         }
+
 
         public void Input()
         {
@@ -66,20 +71,26 @@ namespace Advanced_Text_Adventure
         {
             Direction();
 
-           switch (dir)
-           {
-               case 'u':
-                   y--; break;
-               case 'd':
-                   y++; break;
-               case 'r':
-                   x++; break;
-               case 'l':
-                   x--; break;
-           }
+            Position tail = snakeBody[0];
+            Console.SetCursorPosition(tail.x, tail.y);
+            Console.Write(" ");
+
+            switch (dir)
+            {
+                case 'u':
+                    y--; break;
+                case 'd':
+                    y++; break;
+                case 'r':
+                    x++; break;
+                case 'l':
+                    x--; break;
+            }
 
             snakeBody.Add(new Position(x, y));
-            snakeBody.RemoveAt(0);
+            snakeBody.RemoveAt(0);  
+
+            DrawSnake();  
             Thread.Sleep(100);
         }
 
@@ -90,7 +101,7 @@ namespace Advanced_Text_Adventure
             if(head.x == food.x && head.y == food.y)
             {
                 snakeBody.Add(new Position(x, y));
-                f.FoodNewLocation();
+                f.FoodNewLocation(snakeBody);
                 score++;
             }
         }
@@ -114,10 +125,11 @@ namespace Advanced_Text_Adventure
         {
             Position head = snakeBody[snakeBody.Count - 1];
 
-            if (head.x >= canvas.Width || head.x <= 0 || head.y  >= canvas.Height || head.y <= 0)
+            if (head.x < 0 || head.x >= canvas.Width || head.y < 0 || head.y >= canvas.Height)
             {
-                throw new SnakeException($"You died, your score was");
+                throw new SnakeException("You died, your score was");
             }
         }
+
     }
 }

@@ -1,29 +1,26 @@
 ﻿using System;
 namespace Advanced_Text_Adventure
 {
-	public class Canvas
-	{
+    public class Canvas
+    {
+        public int Width { get; set; }
+        public int Height { get; set; }
 
-		public int Width { get; set; }
-		public int Height { get; set; }
+        public Canvas()
+        {
+            Width = 50;
+            Height = 25;
+            Console.CursorVisible = false;
+            
+        }
 
-		public Canvas()
-		{
-			Width = 50;
-			Height = 25;
-
-			Console.CursorVisible = false;
-		}
-
-		public void drawCanvas()
-		{
-			Console.Clear();
-
-			for (int i = 0; i < Width; i++)
-			{
-				Console.SetCursorPosition(i, 0);
-				Console.Write("▀");
-			}
+        public void DrawBorder()
+        {
+            for (int i = 0; i < Width; i++)
+            {
+                Console.SetCursorPosition(i, 0);
+                Console.Write("▀");
+            }
             for (int i = 0; i <= Width; i++)
             {
                 Console.SetCursorPosition(i, Height);
@@ -40,6 +37,6 @@ namespace Advanced_Text_Adventure
                 Console.Write("█");
             }
         }
-	}
+    }
 }
 
