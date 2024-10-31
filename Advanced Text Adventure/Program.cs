@@ -9,7 +9,7 @@ namespace Advanced_Text_Adventure
         static void Main(string[] args)
         {
             bool finished = false;
-            Canvas canvas = new Canvas();
+            Canvas canvas = new();
             Snake snake = new();
             Food food = new();
             bool stupid = true;
@@ -59,8 +59,10 @@ namespace Advanced_Text_Adventure
                                 case 'y':
                                     Console.Clear();         
                                     canvas.DrawBorder();     
-                                    snake.x = 20;
-                                    snake.y = 20;
+                                    snake.x = 25;
+                                    snake.y = 12;
+                                    snake.key = 'w';
+                                    snake.dir = 'u';
                                     snake.score = 0;
                                     snake.snakeBody.Clear();
                                     snake.snakeBody.Add(new Position(snake.x, snake.y));

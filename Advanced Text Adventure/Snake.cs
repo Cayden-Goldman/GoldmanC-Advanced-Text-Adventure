@@ -11,8 +11,8 @@ namespace Advanced_Text_Adventure
     internal class Snake
     {
         ConsoleKeyInfo keyInfo = new();
-        char key = 'w';
-        char dir = 'u';
+        public char key = 'w';
+        public char dir = 'u';
 
         public List<Position> snakeBody { get; set; }
 
@@ -22,8 +22,8 @@ namespace Advanced_Text_Adventure
 
         public Snake()
         {
-            x = 20;
-            y = 20;
+            x = 25;
+            y = 12;
             score = 0;
 
             snakeBody = new List<Position>();
