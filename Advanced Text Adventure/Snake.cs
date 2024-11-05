@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Advanced_Text_Adventure
 {
@@ -13,17 +14,19 @@ namespace Advanced_Text_Adventure
         ConsoleKeyInfo keyInfo = new();
         public char key = 'w';
         public char dir = 'u';
+        public Canvas canvas = new();
+        public float scorePerFood = 1;
 
         public List<Position> snakeBody { get; set; }
 
-        public int x { get; set; }
-        public int y { get; set; }
-        public int score { get; set; }
+        private int x { get; set; }
+        private int y { get; set; }
+        private float score { get; set; }
 
         public Snake()
         {
-            x = 25;
-            y = 12;
+            x = (int)MathF.Round(canvas.Width / 2);
+            y = (int)MathF.Round(canvas.Height / 2);
             score = 0;
 
             snakeBody = new List<Position>();
@@ -102,7 +105,7 @@ namespace Advanced_Text_Adventure
             {
                 snakeBody.Add(new Position(x, y));
                 f.FoodNewLocation(snakeBody);
-                score++;
+                score += scorePerFood;
             }
         }
 
@@ -130,6 +133,23 @@ namespace Advanced_Text_Adventure
                 throw new SnakeException("You died, your score was");
             }
         }
+
+        public void SnakeReset()
+        {
+            x = (int)MathF.Round(canvas.Width / 2);
+            y = (int)MathF.Round(canvas.Height / 2);
+            key = 'w';
+            dir = 'u';
+            score = 0;
+            snakeBody.Clear();
+            snakeBody.Add(new Position(x, y));
+        }
+
+        public float GetScore()
+        {
+            return score;
+        }
+
 
     }
 }

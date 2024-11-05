@@ -8,8 +8,8 @@ namespace Advanced_Text_Adventure
 
         public Canvas()
         {
-            Width = 50;
-            Height = 25;
+            Width = 20;
+            Height = (int)MathF.Round(Width / 2);
             Console.CursorVisible = false;
             
         }

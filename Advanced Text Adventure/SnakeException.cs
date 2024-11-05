@@ -11,7 +11,7 @@ namespace Advanced_Text_Adventure
 
         public SnakeException(string message) : base(message)
         {
-
+            Console.WriteLine(message);
         }
     }
 }

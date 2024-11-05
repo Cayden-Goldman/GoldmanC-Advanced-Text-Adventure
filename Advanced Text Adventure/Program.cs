@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Advanced_Text_Adventure
@@ -12,13 +13,15 @@ namespace Advanced_Text_Adventure
             Canvas canvas = new();
             Snake snake = new();
             Food food = new();
+            Upgrades upgrades = new();
             bool stupid = true;
+            bool idiot = true;
 
 
             Console.WriteLine("           _________ _________ _________              __                    \r\n          /   _____//   _____//   _____/ ____ _____  |  | __ ____           \r\n  ______  \\_____  \\ \\_____  \\ \\_____  \\ /    \\\\__  \\ |  |/ // __ \\   ______ \r\n /_____/  /        \\/        \\/        \\   |  \\/ __ \\|    <\\  ___/  /_____/ \r\n         /_______  /_______  /_______  /___|  (____  /__|_ \\\\___  >         \r\n                 \\/        \\/        \\/     \\/     \\/     \\/    \\/          ");
-            Console.WriteLine("\t\t\t  - Press enter to start -");
             Console.WriteLine("\t\t\t      - WASD to move -");
             Console.WriteLine("\t\t       - Pick up food to gain score -");
+            Console.WriteLine("\t\t\t  - Press enter to start -");
             Console.ReadLine();
             Console.Clear();
             canvas.DrawBorder();
@@ -26,15 +29,22 @@ namespace Advanced_Text_Adventure
             {
                 try
                 {
-                    Console.SetCursorPosition(40, 1);
-                    Console.Write($"Score : {snake.score}");
+                    Console.SetCursorPosition(canvas.Width + 2, 1);
+                    Console.Write($"Score : {snake.GetScore()}");
                     food.DrawFood();
-                    snake.Input();
                     snake.DrawSnake();
+                    upgrades.DrawUpgrades();
+                    while(idiot)
+                    {
+                        if (Console.ReadKey(true).Key != ConsoleKey.Escape)
+                            idiot = false;
+                    }
+                    snake.Input();
                     snake.MoveSnake();
                     snake.SnakeGrow(food.FoodLocation(), food);
                     snake.IsDead();
                     snake.HitWall(canvas);
+                    
                 }
                 catch (SnakeException e)
                 {
@@ -43,7 +53,7 @@ namespace Advanced_Text_Adventure
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write(e.Message);
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write($" {snake.score}");
+                    Console.Write($" {snake.GetScore()}");
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine();
                     Console.WriteLine();
@@ -58,16 +68,10 @@ namespace Advanced_Text_Adventure
                             {
                                 case 'y':
                                     Console.Clear();         
-                                    canvas.DrawBorder();     
-                                    snake.x = 25;
-                                    snake.y = 12;
-                                    snake.key = 'w';
-                                    snake.dir = 'u';
-                                    snake.score = 0;
-                                    snake.snakeBody.Clear();
-                                    snake.snakeBody.Add(new Position(snake.x, snake.y));
-
+                                    canvas.DrawBorder();
+                                    snake.SnakeReset();
                                     stupid = false;
+                                    idiot = true;
                                     break;
 
                                 case 'n':
